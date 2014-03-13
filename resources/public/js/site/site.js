@@ -1,8 +1,3 @@
-$(function () {
-
-});
-
-
 site_remove_kid = function(kid_id, name) {
     if (confirm("Are you sure you want to remove "+name+"?")) {
         $('#kid_id').val(kid_id);
@@ -25,4 +20,22 @@ $(document).ready(function() {
         $('#password').val() != null && $('#password').val() != '') {
         $('#signin').submit();
     }
+});
+
+
+$(document).ready(function() {
+    $('#email').val($.cookie('pm[email]'));
+    $('#password').val($.cookie('pm[password]'));
+    if ($('#email').val() != null && $('#email').val() != '' &&
+        $('#password').val() != null && $('#password').val() != '') {
+        $('#signin').submit();
+    }
+});
+
+$('#save').submit(function() {
+    if (!$('input:radio[name="kid_id"]').is(':checked')) {
+        alert("You must pick a kid!");
+        return false;
+    }
+    return true;
 });

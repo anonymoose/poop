@@ -1,5 +1,4 @@
-<input type="hidden" id="page" value="equity"/>
-
+<br/>
 <div class="row">
   <a href="/fever">
     <div class="col-lg-3">
@@ -67,6 +66,7 @@
             <thead>
               <tr>
                 <th>Kid <i class="fa fa-sort"></i></th>
+                <th>When? <i class="fa fa-sort"></i></th>
                 <th>Event <i class="fa fa-sort"></i></th>
                 <th>Info <i class="fa fa-sort"></i></th>
                 <th>Note <i class="fa fa-sort"></i></th>
@@ -76,8 +76,9 @@
               {% for e in events %}
               <tr>
                 <td>{{e.name}}</td>
+                <td>{{e.create_dt|date:"yyyy-MM-dd h:mm a"}}</td>
                 <td>{{e.log_type}}</td>
-                <td>{{e.temperature}}</td>
+                <td>{{e.datapoint}} {{e.datapoint2}}</td>
                 <td>{{e.note}}</td>
               </tr>
               {% endfor %}
@@ -88,23 +89,3 @@
     </div>
   </div>
 </div><!-- /.row -->
-
-<!-- <div class="row"> -->
-<!--   <div class="col-lg-4"> -->
-<!--     <div class="panel panel-primary"> -->
-<!--       <div class="panel-heading"> -->
-<!--         <h3 class="panel-title"><i class="fa fa-clock-o"></i> Recent News</h3> -->
-<!--       </div> -->
-<!--       <div class="panel-body"> -->
-<!--         <div class="list-group"> -->
-<!--           {% for n in news %} -->
-<!--           <a href="{{n.link|first}}" target="_blank" class="list-group-item"> -->
-<!--             <span class="badge">{{n.pubdate|first|truncate:16}}</span> -->
-<!--             <i class="fa fa-check"></i> {{n.title|first|fixup|safe}} -->
-<!--           </a> -->
-<!--           {% endfor %} -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div><\!-- /.row -\-> -->
