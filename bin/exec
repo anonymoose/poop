@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source `dirname $0`/.password
+export USR
+export PWD
+export POSTGRESQL_URL
+export PICKR_DEBUG=TRUE
+
+lein exec -p $1

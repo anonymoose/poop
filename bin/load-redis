@@ -1,0 +1,39 @@
+#!/bin/bash
+
+cd `dirname $0`/..
+source `dirname $0`/.password
+export USR
+export PWD
+export POSTGRESQL_URL 
+
+export QUOTES_SRC=data/quotes/src
+export QUOTES_DB=data/quotes/db
+export META_NAMES_SRC=data/meta/src/names
+export META_FUNDAMENTALS_SRC=data/meta/src/fundamentals
+export META_TECHNICAL_SRC=data/meta/src/technical
+
+
+EXCHANGES=`ls -1 $QUOTES_SRC | sed 's/_.*//' | sort | uniq`
+
+for e in $EXCHANGES
+do
+        # move everything into position
+        echo $QUOTES_DB/$e
+        mkdir $QUOTES_DB/$e > /dev/null 2>&1
+        rsync -a $QUOTES_SRC/${e}_*.txt $QUOTES_DB/$e
+        for f in `ls -1 $QUOTES_DB/$e/*.txt`;
+        do
+            # pump the file into redis, but only if we've never done this one before.
+            dt=`echo $f | sed "s/.*_//" | sed "s/.txt//"`
+            exists=`redis-cli hget ${e}_processed $dt`
+            if [ -z $exists ]
+            then
+                echo $e : $f : $dt
+                cat $f | grep -v Symbol | awk -F "," "{ print \$1,$dt,\$3,\$4,\$5,\$6,\$7 }" | sed 's/ / "/' | sed "s/^/lpush $e:/" | sed 's/.$/"/' | sed 's/\r//' | sed 's/\n//' | redis-cli > /dev/null 2>&1
+                redis-cli hset ${e}_processed $dt 1 > /dev/null 2>&1
+            #else
+            #    echo SKIP : $e : $f : $dt
+            fi
+        done
+done
+

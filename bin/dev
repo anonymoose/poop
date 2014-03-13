@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source `dirname $0`/.password
+
+export PICKR_DEBUG=TRUE
+
+lein ring server-headless

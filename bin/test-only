@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source `dirname $0`/.password
+export PICKR_DEBUG=TRUE
+
+pg_dump -U poop -O -c poop > bin/.tmpdb.sql
+
+bin/reload > /dev/null 2>&1
+
+lein test :only $1 | grep -iv pool | grep -v C3P0 2>&1
+
+psql -q -U poop -d poop -f bin/.tmpdb.sql > /dev/null 2>&1
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git push -u github work 
+git checkout master 
+git merge work 
+git push -u github master 
+git checkout work

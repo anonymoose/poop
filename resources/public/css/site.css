@@ -1,0 +1,107 @@
+.flot-chart-index {
+  height: 165px;
+  width: 97%;
+}
+.flot-chart-equity {
+  height: 225px;
+}
+
+.poop-up {
+    background-color: #D6E9C6;
+    color: #468847;
+}
+.poop-down {
+    background-color: #F2DEDE;
+    color: #B94A48;
+}
+
+.announcement-heading-index {
+    font-size: 20px;
+}
+
+.search-group {
+    margin-bottom: 0px;
+    margin-top: 23px;
+}
+
+.sign-up-button-top {
+    margin-top: 23px;
+    width: 100%;
+}
+.sign-up-button-menu {
+    margin-top: 23px;
+    margin-left: 15px;
+    /*width: 100%;*/
+}
+.ticker-search {
+    width: 100%;
+}
+
+.twitter-typeahead {
+    width: 100%;
+}
+
+.poop-footer {
+/*    margin-left: 100px;*/
+}
+
+.footer-links li {
+    display: inline;
+}
+
+.navbar-brand {
+    font-size: 18px;
+}
+
+.navbar-brand img {
+    height: 15px;
+    margin-right: 2px;
+    margin-top: -4px;
+}
+
+.addthis_poop {
+    padding-left: 10px;
+    padding-top: 15px;
+    width: 125px;
+}
+
+
+.panel-poop {
+    border-color: #D6E9C6;
+}
+
+.panel-poop > .panel-heading {
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #468847;
+}
+
+.panel-fever {
+    border-color: #D6E9C6;
+}
+
+.panel-fever > .panel-heading {
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #468847;
+}
+
+.panel-pee {
+    border-color: #D6E9C6;
+}
+
+.panel-pee > .panel-heading {
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #468847;
+}
+
+.panel-eat {
+    border-color: #D6E9C6;
+}
+
+.panel-eat > .panel-heading {
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #468847;
+}

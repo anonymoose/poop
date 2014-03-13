@@ -1,0 +1,15 @@
+#!/bin/bash
+source `dirname $0`/.password
+export USR
+export PWD
+export POSTGRESQL_URL
+
+[ -z "${1}" ] && echo "missing exchange" && exit 1
+[ -z "${2}" ] && echo "missing symbol" && exit 1
+#[ -z "${3}" ] && echo "missing training end date" && exit 1
+
+lein exec -ep "(use '[poop.sim.algo]) (equity-ga \"${1}\" \"${2}\" \"20130601\")"
+
+
+
+

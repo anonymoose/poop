@@ -1,0 +1,7 @@
+#!/bin/bash
+
+dropdb -U postgres poop
+createdb -U postgres poop
+psql -U postgres "alter database poop owner to poop"
+psql -U poop -d poop -f doc/schema.sql
+

@@ -1,0 +1,110 @@
+<input type="hidden" id="page" value="equity"/>
+
+<div class="row">
+  <div class="col-lg-6">
+    <h1>Poop Tracker</h1>
+  </div>
+</div><!-- /.row -->
+
+<div class="row">
+  <a href="/fever">
+    <div class="col-lg-3">
+      <div class="panel panel-fever">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <i class="fa fa-arrow-circle-up fa-5x">Fever</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <div class="col-lg-3">
+    <div class="panel panel-poop">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-arrow-circle-up fa-5x">Poop</i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="panel panel-pee">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-arrow-circle-up fa-5x">Pee</i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="panel panel-eat">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-arrow-circle-up fa-5x">Eat</i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Recent History: {{today-words}}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-hover tablesorter">
+            <thead>
+              <tr>
+                <th>Kid <i class="fa fa-sort"></i></th>
+                <th>Event <i class="fa fa-sort"></i></th>
+                <th>Info <i class="fa fa-sort"></i></th>
+                <th>Note <i class="fa fa-sort"></i></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for e in events %}
+              <tr>
+                <td>{{e.name}}</td>
+                <td>{{e.log_type}}</td>
+                <td>{{e.temperature}}</td>
+                <td>{{e.note}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+
+<!-- <div class="row"> -->
+<!--   <div class="col-lg-4"> -->
+<!--     <div class="panel panel-primary"> -->
+<!--       <div class="panel-heading"> -->
+<!--         <h3 class="panel-title"><i class="fa fa-clock-o"></i> Recent News</h3> -->
+<!--       </div> -->
+<!--       <div class="panel-body"> -->
+<!--         <div class="list-group"> -->
+<!--           {% for n in news %} -->
+<!--           <a href="{{n.link|first}}" target="_blank" class="list-group-item"> -->
+<!--             <span class="badge">{{n.pubdate|first|truncate:16}}</span> -->
+<!--             <i class="fa fa-check"></i> {{n.title|first|fixup|safe}} -->
+<!--           </a> -->
+<!--           {% endfor %} -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div><\!-- /.row -\-> -->

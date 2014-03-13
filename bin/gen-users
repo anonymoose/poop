@@ -1,0 +1,8 @@
+#!/bin/bash
+
+bin/exec bin/import-test-data.clj 
+
+
+
+
+

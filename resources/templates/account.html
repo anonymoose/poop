@@ -1,0 +1,138 @@
+{% if saved? %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="alert alert-dismissable alert-success">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      ACCOUNT INFORMATION SAVED!  &nbsp;&nbsp;&nbsp;Get some rest.
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="row">
+      <form method="POST" id="signup" action="/account/{{user.id}}">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Your Account Information.</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="fname">First Name:</label>
+              <input type="text" name="fname" id="fname" class="validated form-control" value="{{user.fname}}" autocomplete="off" required
+                     data-validation-required-message="First name is a required field."/>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name:</label>
+              <input type="text" name="lname" id="lname" class="validated form-control" value="{{user.lname}}" autocomplete="off" required
+                     data-validation-required-message="Last name is a required field."/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="text" name="email" id="email" class="validated form-control" value="{{user.email}}" autocomplete="off" requird
+                     data-validation-required-message="Email is a required field."/>
+            </div>
+            <div class="form-group">
+              <label>Email Preferences</label>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="consent_email_notifications"
+                         {% if user.consent_email_notifications %} CHECKED {% endif %}
+                         />
+                  I want emails when the system needs to notify me about something.  No marketing.  Promise.
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Save Account Info</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="row">
+      <form method="POST" id="add-kid" action="/add-kid">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1>Your Kids</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <input type="text" name="name" id="name" class="validated form-control" placeholder="Kid's Name to Add..." required/>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Add</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="col-lg-6">
+        <div class="table-responsive">
+          <table class="table table-hover tablesorter">
+            <thead>
+              <tr>
+                <th>Name <i class="fa fa-sort"></i></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for k in kids %}
+              <tr>
+                <td>{{k.name}}</td>
+                <td><a href="javascript:site_remove_kid('{{k.id}}', '{{k.name}}');"><i class="fa fa-minus-circle"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <form method="POST" id="frm-remove-kid" action="/remove-kid">
+          <input type="hidden" id="kid_id" name="kid_id" value=""/>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <form method="POST" id="signup" action="/change-password">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1>Change Password</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" name="password" id="password" class="validated form-control" placeholder="Password" required/>
+            </div>
+            <div class="form-group">
+              <label for="confirm">Confirm Password:</label>
+              <input type="password" name="confirm" id="confirm" class="validated form-control" placeholder="Password" required
+                     data-validation-matches-match="password"
+                     data-validation-matches-message="Passwords must match"/>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-info">Change Password</button>
+            </div>
+          </div>
+        </div>
+        {% if deny? %}
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="alert alert-dismissable alert-danger">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              Passwords do not match.  Please try again.
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>

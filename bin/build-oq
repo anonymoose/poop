@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rm -rf local_repo/openquant/
+rm -rf $HOME/.m2/repository/openquant
+cd openquant
+ant uber
+cd ..
+mvn deploy:deploy-file -Dfile=openquant/target/openquant-0.0.1.jar -DartifactId=openquant -Dversion=0.0.1 -DgroupId=openquant -Dpackaging=jar -Durl=file:local_repo

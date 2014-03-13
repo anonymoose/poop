@@ -1,0 +1,175 @@
+<input type="hidden" id="page" value="track"/>
+<input type="hidden" id="client_id" value="{{user.id}}"/>
+
+<div class="row">
+  <div class="col-lg-6">
+    <h1>Tracking {{user.fname|capitalize}} {{user.lname|capitalize}}</h1>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group input-group search-group">
+      <input type="text" id="search" class="form-control ticker-search" placeholder="Search by Ticker">
+      <span class="input-group-btn">
+        <button id="search-button" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+      </span>
+    </div>
+  </div>
+</div><!-- /.row -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <hr/>
+    <!-- <ol class="breadcrumb"> </ol> -->
+  </div>
+</div>
+
+<div class="row">
+{% if not portfolio|empty? %}
+  <div class="col-lg-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Portfolio History: {{today-words}}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="flot-chart flot-chart-index">
+          <div class="flot-chart-content" id="portfolio-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+  <div class="col-lg-{% if portfolio|empty? %}12{% else %}6{% endif %}">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Market History: {{today-words}}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="flot-chart flot-chart-index">
+          <div class="flot-chart-content" id="market-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-eye"></i> Equity Views</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          {% for v in equity-views %}
+          <a href="/equity/{{v.exchange}}/{{v.symbol}}" class="list-group-item">
+            <span class="badge"></span>
+            <i class="fa fa-eye"></i> <strong>{{v.exchange}}:{{v.symbol}}</strong> {{v.create_dt|date:"yyyy-MM-dd HH:mm"}}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-check"></i> Dashboard Views</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          {% for v in dashboard-views %}
+          <a href="" class="list-group-item">
+            <span class="badge"></span>
+            <i class="fa fa-check"></i> <strong>{{v.create_dt}}</strong>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-arrow-circle-up"></i> Equities This Client is Tracking</h3>
+          </div>
+          <div class="panel-body">
+            <form action="/portfolio/add" method="POST">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <input type="text" id="portfolio_symbol_search" class="validated form-control ticker-search-2" placeholder="Symbol" autocomplete="off" required
+                           data-validation-required-message="Ticker symbol is required"/>
+                    <input type="hidden" id="symbol" name="symbol" value=""/>
+                    <input type="hidden" id="exchange" name="exchange" value=""/>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <input type="text" name="txn_dt" id="txn_dt" class="form-control datepicker" placeholder="Date" autocomplete="off"/>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <input type="text" name="shares" id="shares" class="form-control" placeholder="# Shares" autocomplete="off"/>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <input type="text" name="price" id="price" class="form-control" placeholder="$$$" autocomplete="off"/>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <input type="text" name="notes" id="notes" class="form-control" placeholder="Notes" autocomplete="off"/>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-link">Add</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            {% if not portfolio|empty? %}
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped tablesorter">
+                  <thead>
+                    <tr>
+                      <th>Symbol <i class="fa fa-sort"></i></th>
+                      <th>Name <i class="fa fa-sort"></i></th>
+                      <th>Shares <i class="fa fa-sort"></i></th>
+                      <th>Price <i class="fa fa-sort"></i></th>
+                      <th>Notes <i class="fa fa-sort"></i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for p in portfolio %}
+                    <tr>
+                      <td><a href="/equity/{{p.exchange}}/{{p.symbol}}">{{p.symbol}}</a></td>
+                      <td>{{p.name}}</td>
+                      <td>{{p.shares}}</td>
+                      <td>{{p.price}}</td>
+                      <td>{{p.notes}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Nothing to track... yet.  Add some positions here.</strong>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+
