@@ -67,23 +67,23 @@
 
 
 .panel-poop {
-    border-color: #D6E9C6;
+    border-color: #fbeed5;
 }
 
 .panel-poop > .panel-heading {
-    background-color: #DFF0D8;
-    border-color: #D6E9C6;
-    color: #468847;
+    color: #c09853;
+    background-color: #fcf8e3;
+    border-color: #fbeed5;
 }
 
 .panel-fever {
-    border-color: #D6E9C6;
+    border-color: #eed3d7;
 }
 
 .panel-fever > .panel-heading {
-    background-color: #DFF0D8;
-    border-color: #D6E9C6;
-    color: #468847;
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
 }
 
 .panel-pee {
@@ -97,11 +97,11 @@
 }
 
 .panel-eat {
-    border-color: #D6E9C6;
+    border-color: #bce8f1;
 }
 
 .panel-eat > .panel-heading {
-    background-color: #DFF0D8;
-    border-color: #D6E9C6;
-    color: #468847;
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
 }
