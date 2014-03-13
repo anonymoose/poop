@@ -14,9 +14,12 @@
 
 
 (defn index []
-  (tpl/page-out "index" {
-                         :mobile (web/mobile?)
-                         }))
+  (if (nil? (common/logged-in-user-id))
+    (tpl/page-out "index"
+                  (merge
+                   (common/user-vars)
+                   {:mobile (web/mobile?)}))
+    (ring/redirect "/dashboard")))
 
 (defn show-page [pg]
   (try

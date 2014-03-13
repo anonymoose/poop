@@ -1,44 +1,81 @@
-<input type="hidden" id="page" value="equity"/>
-
 <div class="row">
   <div class="col-lg-6">
-    <h1>Poop Tracker</h1>
+    <form method="POST" id="signup" action="/sign-up">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Sign up and get started.</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="fname">First Name:</label>
+            <input type="text" name="fname" id="fname" class="validated form-control" value="{{user.fname}}" autocomplete="off" required
+                   data-validation-required-message="First name is a required field."/>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name:</label>
+            <input type="text" name="lname" id="lname" class="validated form-control" value="{{user.lname}}" autocomplete="off" required
+                   data-validation-required-message="Last name is a required field."/>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email2" class="validated form-control" value="{{user.email}}" autocomplete="off" reqiured
+                   data-validation-required-message="Email is a required field."/>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password2" class="form-control" autocomplete="off"/>
+          </div>
+          <div class="form-group">
+            <label>Email Preferences</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="consent_email_notifications"/>
+                I want emails when the system needs to notify me about something.  No marketing.  Promise.
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success">Sign Up!</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-</div><!-- /.row -->
+  <div class="col-lg-6">
+    <form method="POST" id="signin" action="/sign-in">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Member?  Login here</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" class="form-control" placeholder="Email"/>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password"/>
+          </div>
 
-Poop.  Everybody does it.
-
-<!-- <div class="row"> -->
-<!--   <div class="col-lg-12"> -->
-<!--     <div class="panel panel-primary"> -->
-<!--       <div class="panel-heading"> -->
-<!--         <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Recent History: {{today-words}}</h3> -->
-<!--       </div> -->
-<!--       <div class="panel-body"> -->
-<!--         <div class="flot-chart flot-chart-equity"> -->
-<!--           <div class="flot-chart-content" id="history-chart"></div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div><\!-- /.row -\-> -->
-
-<!-- <div class="row"> -->
-<!--   <div class="col-lg-4"> -->
-<!--     <div class="panel panel-primary"> -->
-<!--       <div class="panel-heading"> -->
-<!--         <h3 class="panel-title"><i class="fa fa-clock-o"></i> Recent News</h3> -->
-<!--       </div> -->
-<!--       <div class="panel-body"> -->
-<!--         <div class="list-group"> -->
-<!--           {% for n in news %} -->
-<!--           <a href="{{n.link|first}}" target="_blank" class="list-group-item"> -->
-<!--             <span class="badge">{{n.pubdate|first|truncate:16}}</span> -->
-<!--             <i class="fa fa-check"></i> {{n.title|first|fixup|safe}} -->
-<!--           </a> -->
-<!--           {% endfor %} -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div><\!-- /.row -\-> -->
+          <div class="form-group">
+      {% if deny? %}
+            <div class="alert alert-dismissable alert-danger">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              Something is not right.  <a href="/forgot-password">Forgot Password?</a>
+            </div>
+      {% else %}
+            <a href="/forgot-password">Forgot Password?</a>
+      {% endif %}
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-info">Sign In!</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

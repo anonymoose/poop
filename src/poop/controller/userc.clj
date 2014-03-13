@@ -78,8 +78,7 @@
       (tpl/page-in "dashboard"
                (merge (common/summary-vars)
                       (common/user-vars)
-                      {:events (user/get-log-activity-by-user (:id usr) 20)}
-                      ))))
+                      {:events (user/get-log-activity-by-user (:id usr) 20)}))))
 
 (defn account
   ([deny?]
