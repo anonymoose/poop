@@ -129,3 +129,10 @@
      (user/log-activity (:id usr) kid_id
                         (dissoc params "kid_id"))
      (ring/redirect "/dashboard"))))
+
+
+(defn event-report []
+  (let [logged-in-usr (user/load-one (common/logged-in-user-id))]
+    (tpl/page-in "event-report"
+                 (merge (common/user-vars)
+                        {:events (user/get-log-activity-by-user (:id logged-in-usr) 300)}))))

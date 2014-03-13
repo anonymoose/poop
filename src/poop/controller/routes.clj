@@ -66,6 +66,8 @@
                       (form-params "kid_id")
                       form-params)))
 
+  (GET "/event-report" []
+       (logged-in? #(poop.controller.userc/event-report)))
 
 
   (GET "/:pg" [pg] (poop.controller.sitec/show-page pg))
