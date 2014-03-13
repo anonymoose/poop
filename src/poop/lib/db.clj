@@ -70,7 +70,9 @@
   "Connect to the DB based on the environment var passed to use either by
     Heroku, or via exporting it in the shell locally. "
   ([]
-     (connect-db-impl (System/getenv "POSTGRESQL_URL")))
+     (let [env (System/getenv "POSTGRESQL_URL")
+           env (if (nil? env) (System/getenv "HEROKU_POSTGRESQL_BROWN_URL") env)]
+      (connect-db-impl env)))
   ([url] (connect-db-impl url)))
 
 
@@ -105,6 +107,3 @@
                        (map #(str/replace % #"\"" "") (str/split v #"=>")))
                      (str/split (.getValue hstore-val) #", "))]
             [(keyword k) v]))))
-
-
-
