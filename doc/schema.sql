@@ -65,7 +65,8 @@ create table user_kid_log (
        kid_id varchar(25) not null,
        log_type varchar(15) not null,
        note text,
-       temperature varchar(5),
+       datapoint varchar(20),
+       datapoint2 varchar(20),
        create_dt timestamp without time zone default now(),
        delete_dt timestamp without time zone
 );
