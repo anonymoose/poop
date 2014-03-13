@@ -90,6 +90,9 @@
       (println query)
       (exec-raw [query] :results))))
 
+(defn load-one-event [id]
+  (first (select user_kid_log
+                 (where {:id id}))))
 
 ;;
 ;; user_kid entity

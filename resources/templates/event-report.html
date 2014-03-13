@@ -6,22 +6,22 @@
       </div>
       <div class="panel-body">
         <div class="table-responsive">
-          <table class="table table-hover tablesorter">
+          <table class="table table-hover tablesorter" id="report-table">
             <thead>
               <tr>
                 <th>Kid <i class="fa fa-sort"></i></th>
-                <th>When? <i class="fa fa-sort"></i></th>
                 <th>Event <i class="fa fa-sort"></i></th>
+                <th>When? <i class="fa fa-sort"></i></th>
                 <th>Info <i class="fa fa-sort"></i></th>
                 <th>Note <i class="fa fa-sort"></i></th>
               </tr>
             </thead>
             <tbody>
               {% for e in events %}
-              <tr>
-                <td>{{e.name}}</td>
-                <td>{{e.create_dt|date:"yyyy-MM-dd h:mm a"}}</td>
+              <tr id="{{e.id}}">
+                <td><a href="/event-view/{{e.id}}">{{e.name}}</a></td>
                 <td>{{e.log_type}}</td>
+                <td>{{e.create_dt|date:"MM-dd h:mm a"}}</td>
                 <td>{{e.datapoint}} {{e.datapoint2}}</td>
                 <td>{{e.note}}</td>
               </tr>

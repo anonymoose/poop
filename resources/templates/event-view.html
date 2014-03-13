@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Event Details</h1>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="email">Which Kid?</label>
+        <p>
+          {{kid.name}}
+        </p>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="email">Event?</label>
+        <p>
+          {{event.log_type}} at {{event.create_dt|date:"MM-dd h:mm a"}}
+        </p>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="email">What Happened?</label>
+        <p class="lead">
+          {{event.datapoint}} {{event.datapoint2}}
+        </p>
+        <p>
+          {{event.note}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

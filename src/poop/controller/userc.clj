@@ -136,3 +136,13 @@
     (tpl/page-in "event-report"
                  (merge (common/user-vars)
                         {:events (user/get-log-activity-by-user (:id logged-in-usr) 300)}))))
+
+
+(defn event-view [event_id]
+  (let [usr (user/load-one (common/logged-in-user-id))
+        log-event (user/load-one-event event_id)
+        kid (user/load-one-kid (:kid_id log-event))]
+    (tpl/page-in "event-view"
+                 (merge (common/user-vars)
+                        {:kid kid
+                         :event log-event}))))

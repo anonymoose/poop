@@ -69,6 +69,8 @@
   (GET "/event-report" []
        (logged-in? #(poop.controller.userc/event-report)))
 
+  (GET "/event-view/:id" {{id :id} :params}
+       (logged-in? #(poop.controller.userc/event-view id)))
 
   (GET "/:pg" [pg] (poop.controller.sitec/show-page pg))
 
