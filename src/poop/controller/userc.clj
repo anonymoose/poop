@@ -73,11 +73,15 @@
 (defn dashboard
   [qparams]
   (let [usr (user/load-one (common/logged-in-user-id))
-        qparams (util/keyword-keyify qparams)]
+        qparams (util/keyword-keyify qparams)
+        kids (user/find-kids-by-user usr)
+        ]
+    (if (< (count kids) 0)
       (tpl/page-in "dashboard"
-               (merge (common/summary-vars)
-                      (common/user-vars)
-                      {:events (user/get-log-activity-by-user (:id usr) 20)}))))
+                   (merge (common/summary-vars)
+                          (common/user-vars)
+                          {:events (user/get-log-activity-by-user (:id usr) 20)}))
+      (ring/redirect "/account"))))
 
 (defn account
   ([deny?]
