@@ -156,7 +156,7 @@
      :logged-in? (complement (nil? uid))
      :user usr
      :kids kids
-     :eat-units (range 1 71)
+     :eat-units (concat [0.5 1 1.5 2 2.5 3 3.5] (range 4 90))
      :hours (range 1 13)
      :minutes ["00" "15" "30" "45"]
      :day-parts ["am" "pm"]

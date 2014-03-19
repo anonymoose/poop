@@ -71,8 +71,3 @@ create table user_kid_log (
        create_dt timestamp without time zone default now(),
        delete_dt timestamp without time zone
 );
-
-alter table user_kid_log add column        activity_dt timestamp without time zone ;
-
-alter table user_kid_log drop column activity_dt;
-alter table user_kid_log add column        activity_dt timestamp with time zone;
