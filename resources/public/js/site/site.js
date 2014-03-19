@@ -5,6 +5,12 @@ site_remove_kid = function(kid_id, name) {
     }
 };
 
+site_sign_out = function() {
+    $.removeCookie('pm[email]');
+    $.removeCookie('pm[password]');
+    window.location = "/sign-out";
+};
+
 
 $('#signin').submit(function() {
     var expires_day = 365;

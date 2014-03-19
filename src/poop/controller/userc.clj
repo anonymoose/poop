@@ -76,7 +76,7 @@
         qparams (util/keyword-keyify qparams)
         kids (user/find-kids-by-user usr)
         ]
-    (if (< (count kids) 0)
+    (if (> (count kids) 0)
       (tpl/page-in "dashboard"
                    (merge (common/summary-vars)
                           (common/user-vars)
