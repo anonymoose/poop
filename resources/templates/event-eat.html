@@ -31,13 +31,17 @@
 
           <div class="form-group">
             <label>Bottle Size?</label>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="4oz" /> 4oz </label> </div>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="5oz" /> 5oz </label> </div>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="6oz" /> 6oz </label> </div>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="7oz" /> 7oz </label> </div>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="8oz" /> 8oz </label> </div>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="10oz" /> 10oz </label> </div>
-            <div class="radio"> <label> <input type="radio" name="datapoint2" value="12oz" /> 12oz </label> </div>
+            <select class="form-control" name="datapoint2">
+              {% for i in eat-units %}
+              <option value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="activity_dt">When?</label>
+            <input type="text" name="activity_dt" id="activity_dt" value="{{now-local}}" class="form-control"/>
           </div>
 
           <div class="form-group">

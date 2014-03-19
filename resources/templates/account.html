@@ -34,9 +34,22 @@
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
-              <input type="text" name="email" id="email" class="validated form-control" value="{{user.email}}" autocomplete="off" requird
+              <input type="text" name="email" id="email" class="validated form-control" value="{{user.email}}" autocomplete="off" required
                      data-validation-required-message="Email is a required field."/>
             </div>
+            <div class="form-group">
+              <label for="timezone">Timezone:</label>
+              <select class="form-control" name="tz" id="tz" autocomplete="off">
+                {% for t in timezone-list %}
+                  {% ifequal t user.tz %}
+                    <option value="{{t}}" SELECTED>{{t}}</option>
+                  {% else %}
+                    <option value="{{t}}">{{t}}</option>
+                  {% endifequal %}
+                {% endfor %}
+              </select>
+            </div>
+
             <div class="form-group">
               <label>Email Preferences</label>
               <div class="checkbox">

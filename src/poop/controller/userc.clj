@@ -44,7 +44,6 @@
      (let [usr (user/find-by-email email)]
        (if (not (nil? usr))
          (kdb/transaction
-          (user/log-activity usr "FORGOT-PW")
           (send-forgot-password-email usr)))
        (tpl/page-out "forgot-password" {:user usr}))))
 
@@ -127,7 +126,9 @@
   (let [usr (user/load-one (common/logged-in-user-id))]
     (kdb/transaction
      (user/log-activity (:id usr) kid_id
-                        (dissoc params "kid_id"))
+                        (assoc (dissoc params "kid_id")
+                          "activity_dt" (common/local-dt-str-to-gmt-timestamp (params "activity_dt")
+                                                                              (:tz usr))))
      (ring/redirect "/dashboard"))))
 
 
@@ -140,9 +141,30 @@
 
 (defn event-view [event_id]
   (let [usr (user/load-one (common/logged-in-user-id))
-        log-event (user/load-one-event event_id)
+        log-event (user/load-one-event usr event_id)
         kid (user/load-one-kid (:kid_id log-event))]
     (tpl/page-in "event-view"
                  (merge (common/user-vars)
                         {:kid kid
                          :event log-event}))))
+
+(defn event-vars []
+  (let [uid (common/logged-in-user-id)
+        usr (if (util/not-nil? uid) (user/load-one uid))
+        kids (if (util/not-nil? usr) (user/find-kids-by-user usr))]
+    {
+     :logged-in? (complement (nil? uid))
+     :user usr
+     :kids kids
+     :eat-units (range 1 71)
+     :hours (range 1 13)
+     :minutes ["00" "15" "30" "45"]
+     :day-parts ["am" "pm"]
+     }))
+
+(defn event-entry [pg]
+  (tpl/page-out (str "event-" pg)
+                (merge
+                 (common/user-vars)
+                 (event-vars)
+                 )))

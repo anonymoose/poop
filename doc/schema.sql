@@ -30,13 +30,13 @@ create table users (
        phone varchar(20),
        password varchar(64),
        owner varchar(25),
+       tz varchar(50) not null default 'US/Eastern',
        user_type varchar(10) not null default 'USER', -- 'USER' or 'BROKER'
        consent_email_notifications boolean default false,
        create_dt timestamp without time zone default now(),
        delete_dt timestamp without time zone
 );
 alter table users add constraint user_email unique (email);
-
 
 drop table if exists user_mail cascade;
 create table user_mail (
@@ -67,6 +67,12 @@ create table user_kid_log (
        note text,
        datapoint varchar(20),
        datapoint2 varchar(20),
+       activity_dt timestamp without time zone,
        create_dt timestamp without time zone default now(),
        delete_dt timestamp without time zone
 );
+
+alter table user_kid_log add column        activity_dt timestamp without time zone ;
+
+alter table user_kid_log drop column activity_dt;
+alter table user_kid_log add column        activity_dt timestamp with time zone;

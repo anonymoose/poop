@@ -80,19 +80,30 @@
                                }))))))
 
 (defn get-log-activity-by-user
+  "pull out the log data but make sure that the activity date is adjusted for the user"
   ([users_id cnt]
-     (let [query (str "select ukl.*, uk.name
-                      from user_kid_log ukl, user_kid uk
+     (let [query (str "select ukl.*, uk.name, u.tz
+                      from user_kid_log ukl, user_kid uk, users u
                       where ukl.kid_id = uk.id and
-                      ukl.users_id = '" users_id "'
+                      ukl.users_id = u.id and
+                      u.id = '" users_id "'
                       order by ukl.create_dt desc
-                      limit " cnt)]
-      (println query)
-      (exec-raw [query] :results))))
+                      limit " cnt)
+           results (exec-raw [query] :results)]
+       (map #(assoc %
+               :activity_dt
+               (util/dt-to-timezone (util/dt-from-java-date (:activity_dt %)) (:tz %))
+               )
+            results))))
 
-(defn load-one-event [id]
-  (first (select user_kid_log
-                 (where {:id id}))))
+(defn load-one-event [usr id]
+
+  (let [evt (first (select user_kid_log
+                           (where {:id id})))]
+    (assoc evt :activity_dt
+           (util/dt-to-timezone (util/dt-from-java-date (:activity_dt evt)) (:tz usr))
+           ;(util/dt-to-timezone (util/dt-from-java-date (:activity_dt evt)) (:tz usr))
+           )))
 
 ;;
 ;; user_kid entity

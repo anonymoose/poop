@@ -14,12 +14,10 @@
 
 
 (require '[clj-json.core :as json] :reload)
-(require '[clj-ta-lib.core :as talib] :reload)
 (require '[clojure.core.memoize] :reload)
 (require '[clojure.string :as str] :reload)
 (require '[clojure.tools.logging :as log] :reload)
 
-(require '[poop.data.const :as const] :reload)
 (require '[poop.lib.mail :as mail] :reload)
 (require '[poop.lib.db :as db] :reload)
 ;(require '[poop.lib.sentiment :as sentiment] :reload)

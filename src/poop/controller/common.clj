@@ -5,8 +5,14 @@
    [poop.lib.util :as util]
    [poop.model.user :as user]
    [sandbar.stateful-session :as session]
-   )
-  )
+   ))
+
+(defn now-local-str [tz]
+  (util/dt-format-to-str (util/dt-now-local tz) "h:mm a MM/dd YYYY" tz))
+
+(defn local-dt-str-to-gmt-timestamp [local-dt-str tz]
+  (let [gmt-dt (util/dt-to-utc (util/dt-parse local-dt-str "h:mm a MM/dd YYYY" tz))]
+    (util/dt-to-sql-timestamp gmt-dt)))
 
 (defn summary-vars []
   {:production (web/production?)
@@ -25,6 +31,8 @@
         kids (if (util/not-nil? usr) (user/find-kids-by-user usr))]
     {
      :logged-in? (complement (nil? uid))
+     :timezone-list util/TIMEZONE-LIST
      :user usr
      :kids kids
+     :now-local (now-local-str (:tz usr))
      }))

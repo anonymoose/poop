@@ -72,6 +72,10 @@
   (GET "/event-view/:id" {{id :id} :params}
        (logged-in? #(poop.controller.userc/event-view id)))
 
+  (GET "/event/:pg" {{pg :pg} :params}
+       (logged-in? #(poop.controller.userc/event-entry pg))
+       )
+
   (GET "/:pg" [pg] (poop.controller.sitec/show-page pg))
 
   ; housekeeping routes

@@ -7,6 +7,7 @@
    [clj-time.format :as dt-fmt]
    [clj-time.periodic :as dt-per]
    [clj-time.predicates :as dt-pred]
+   [clj-time.coerce :as dt-c]
    )
   (:use [clojure.pprint])
   (:refer-clojure :exclude [extend second])
@@ -16,10 +17,7 @@
    (java.net URL)
    (java.lang StringBuilder)
    (java.io BufferedReader InputStreamReader)
-   )
-)
-
-
+   ))
 
 (defn current-date []
   (new java.util.Date))
@@ -49,6 +47,9 @@
 (defn dt-now []
   (dt/now))
 
+(defn dt-now-local [tz]
+  (dt/to-time-zone (dt/now) (dt/time-zone-for-id tz)))
+
 (defn dt-yesterday []
   (dt/plus (dt/now) (dt/days -1)))
 
@@ -65,7 +66,10 @@
   ([dt]
      (dt-parse dt "yyyy-MM-dd"))
   ([dt fmt]
-     (dt-fmt/parse (dt-fmt/formatter fmt) dt)))
+     (dt-fmt/parse (dt-fmt/formatter fmt) dt))
+  ([dt fmt tz]
+     (dt-fmt/parse (dt-fmt/formatter fmt (dt/time-zone-for-id tz)) dt))
+  )
 
 (defn dt-weekend?
   [dt]
@@ -78,8 +82,11 @@
 (defn dt-after? [d1 d2]
   (dt/after? d1 d2))
 
-(defn dt-format-to-str [d fmt]
-  (dt-fmt/unparse (dt-fmt/formatter fmt) d))
+(defn dt-format-to-str
+  ([d fmt tz]
+     (dt-fmt/unparse (dt-fmt/formatter fmt (dt/time-zone-for-id tz)) d))
+  ([d fmt]
+     (dt-fmt/unparse (dt-fmt/formatter fmt) d)))
 
 (defn dt-days-seq [st]
   (dt-per/periodic-seq st (dt/days 1)))
@@ -95,6 +102,8 @@
                 (= mo (dt/month %)))
           (take 32 (dt-per/periodic-seq (dt/date-time yr mo 1) (dt/days 1)))))
 
+(defn ^Timestamp dt-to-sql-timestamp [d]
+  (Timestamp. (- (dt/year d) 1900) (- (dt/month d) 1) (dt/day d) (dt/hour d) (dt/minute d) 0 0))
 
 ;; (defn dt-weekend [d]
 ;;   (dtp/weekend? d))
@@ -124,6 +133,18 @@
 (defn dt-within? [dt1 dtbetween dt2]
   (dt/within? (dt/interval dt1 dt2) dtbetween))
 
+(defn dt-from-java-date [jdt]
+  (dt-c/from-date jdt))
+
+(defn dt-to-timezone [d tz]
+  (dt/to-time-zone d (dt/time-zone-for-id tz)))
+
+(defn dt-from-timezone [d tz]
+  (dt/from-time-zone d (dt/time-zone-for-id tz)))
+
+(defn dt-to-utc [d]
+  (dt-to-timezone d "Greenwich"))
+
 (defn current-date-str []
   (format-date (current-date)))
 
@@ -144,6 +165,22 @@
   ([delta]
     (Timestamp. (+ (System/currentTimeMillis) delta))))
 
+(def TIMEZONE-LIST
+  [
+   "US/Eastern"
+   "US/Central"
+   "US/Mountain"
+   "US/Pacific"
+   "US/Alaska"
+   "US/Aleutian"
+   "US/Arizona"
+   "US/East-Indiana"
+   "US/Hawaii"
+   "US/Indiana-Starke"
+   "US/Michigan"
+   "US/Samoa"
+   ]
+  )
 
 (defn keyword-keyify
   "Turns
@@ -170,7 +207,7 @@
 (defn dateify-params
   "if a key ends in _dt and its value is a string, convert that to a sql date."
   [params]
-  (zipmap (keys params) 
+  (zipmap (keys params)
           (for [kv (seq params)]
             (let [k (name (key kv))
                   v (val kv)]
@@ -185,7 +222,7 @@
 (defn undateify-params
   "if a value's type is a date-ish type, convert the date to a date string"
   [params]
-  (zipmap (keys params) 
+  (zipmap (keys params)
           (for [kv (seq params)]
             (let [k (name (key kv))
                   v (val kv)]

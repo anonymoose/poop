@@ -1,6 +1,6 @@
 <br/>
 <div class="row">
-  <a href="/event-poop">
+  <a href="/event/poop">
     <div class="col-lg-3">
       <div class="panel panel-poop">
         <div class="panel-heading">
@@ -13,7 +13,7 @@
       </div>
     </div>
   </a>
-  <a href="/event-pee">
+  <a href="/event/pee">
     <div class="col-lg-3">
       <div class="panel panel-pee">
         <div class="panel-heading">
@@ -26,7 +26,7 @@
       </div>
     </div>
   </a>
-  <a href="/event-eat">
+  <a href="/event/eat">
     <div class="col-lg-3">
       <div class="panel panel-eat">
         <div class="panel-heading">
@@ -39,7 +39,7 @@
       </div>
     </div>
   </a>
-  <a href="/event-fever">
+  <a href="/event/fever">
     <div class="col-lg-3">
       <div class="panel panel-fever">
         <div class="panel-heading">
@@ -52,7 +52,7 @@
       </div>
     </div>
   </a>
-  <a href="/event-other">
+  <a href="/event/other">
     <div class="col-lg-3">
       <div class="panel panel-eat">
         <div class="panel-heading">
@@ -103,7 +103,7 @@
               <tr>
                 <td><a href="/event-view/{{e.id}}">{{e.name}}</a></td>
                 <td>{{e.log_type}}</td>
-                <td>{{e.create_dt|date:"MM-dd h:mm a"}}</td>
+                <td>{{e.activity_dt|date:"h:mm a M/dd"}}</td>
                 <td>{{e.datapoint}} {{e.datapoint2}}</td>
                 <td>{{e.note}}</td>
               </tr>
