@@ -38,11 +38,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            {% if logged-in? %}
+            {% if uid %}
               <li class="active"><a href="/dashboard"><i class="fa fa-dashboard"></i> Poop Tracker</a></li>
             {% endif %}
             <li><a href="/about"><i class="fa fa-cogs"></i> About Poop</a></li>
-            {% if logged-in? %}
+            {% if uid %}
               <li><a href="/account"><i class="fa fa-male"></i> Account</a></li>
               <li><a href="/sign-out"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             {% else %}

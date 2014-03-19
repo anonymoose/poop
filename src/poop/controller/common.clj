@@ -32,6 +32,7 @@
     {
      :logged-in? (complement (nil? uid))
      :timezone-list util/TIMEZONE-LIST
+     :uid uid
      :user usr
      :kids kids
      :now-local (now-local-str (:tz usr))
