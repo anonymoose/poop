@@ -54,7 +54,8 @@
                  params)]
     ; check boxes come in as "on".  turn those to booleans
     (assoc params
-      "consent_email_notifications" (= "on" (params "consent_email_notifications")))))
+      "consent_email_notifications" (= "on" (params "consent_email_notifications"))
+      "email" (str/lower-case (params "email")))))
 
 (defn sign-up
   ([] (tpl/page-out "sign-up" {}))
