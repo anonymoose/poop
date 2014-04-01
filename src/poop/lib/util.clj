@@ -47,8 +47,14 @@
 (defn dt-now []
   (dt/now))
 
+(defn dt-local [tz tm]
+  (dt/to-time-zone tm (dt/time-zone-for-id tz)))
+
+(defn dt-local-min-ago [tz min-back]
+  (dt-local tz (dt/minus (dt/now) (dt/minutes min-back))))
+
 (defn dt-now-local [tz]
-  (dt/to-time-zone (dt/now) (dt/time-zone-for-id tz)))
+  (dt-local tz (dt/now)))
 
 (defn dt-yesterday []
   (dt/plus (dt/now) (dt/days -1)))
@@ -68,8 +74,7 @@
   ([dt fmt]
      (dt-fmt/parse (dt-fmt/formatter fmt) dt))
   ([dt fmt tz]
-     (dt-fmt/parse (dt-fmt/formatter fmt (dt/time-zone-for-id tz)) dt))
-  )
+     (dt-fmt/parse (dt-fmt/formatter fmt (dt/time-zone-for-id tz)) dt)))
 
 (defn dt-weekend?
   [dt]
@@ -323,3 +328,28 @@
   (let [w (StringWriter.)]
     (pprint obj w)
     (.toString w)))
+
+
+(defn hash-string
+  "Use java interop to flexibly hash strings"
+  [string algo base]
+  (let [hashed
+        (doto (java.security.MessageDigest/getInstance algo)
+          (.reset)
+          (.update (.getBytes string)))]
+    (.toString (new java.math.BigInteger 1 (.digest hashed)) base))
+  )
+
+
+(defn hash-md5
+  "Generate a md5 checksum for the given string"
+  [string]
+  (hash-string string "MD5" 16)
+)
+
+
+(defn hash-sha
+  "Generate a sha checksum for the given string"
+  [string]
+  (hash-string string "SHA-1" 16)
+)

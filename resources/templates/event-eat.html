@@ -52,6 +52,16 @@
 
           <div class="form-group">
             <label for="activity_dt">When?</label>
+          </div>
+
+          <div class="form-group">
+            <a class="btn btn-info" onclick="site_set_ago('{{ago15}}');">15 min</a>
+            <a class="btn btn-info" onclick="site_set_ago('{{ago30}}');">30 min</a>
+            <a class="btn btn-info" onclick="site_set_ago('{{ago45}}');">45 min</a>
+            <a class="btn btn-info" onclick="site_set_ago('{{ago60}}');">60 min</a>
+          </div>
+
+          <div class="form-group">
             <input type="text" name="activity_dt" id="activity_dt" value="{{now-local}}" class="form-control"/>
           </div>
 
@@ -61,7 +71,7 @@
           </div>
 
           <div class="form-group">
-            <button type="submit" class="btn btn-info">Save</button>
+            <button type="submit" class="btn btn-primary">Save</button>
           </div>
         </div>
       </div>

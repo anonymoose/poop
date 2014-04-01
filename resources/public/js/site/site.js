@@ -11,6 +11,10 @@ site_sign_out = function() {
     window.location = "/sign-out";
 };
 
+site_set_ago = function(newval) {
+    $('#activity_dt').val(newval);
+    return false;
+};
 
 $('#signin').submit(function() {
     var expires_day = 365;

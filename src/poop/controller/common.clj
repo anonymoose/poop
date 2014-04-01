@@ -7,8 +7,11 @@
    [sandbar.stateful-session :as session]
    ))
 
-(defn now-local-str [tz]
-  (util/dt-format-to-str (util/dt-now-local tz) "h:mm a MM/dd YYYY" tz))
+(defn now-local-str
+  ([tz min-ago]
+     (util/dt-format-to-str (util/dt-local-min-ago tz min-ago) "h:mm a MM/dd YYYY" tz))
+  ([tz]
+     (util/dt-format-to-str (util/dt-now-local tz) "h:mm a MM/dd YYYY" tz)))
 
 (defn local-dt-str-to-gmt-timestamp [local-dt-str tz]
   (let [gmt-dt (util/dt-to-utc (util/dt-parse local-dt-str "h:mm a MM/dd YYYY" tz))]
@@ -36,4 +39,8 @@
      :user usr
      :kids kids
      :now-local (now-local-str (:tz usr))
+     :ago15 (now-local-str (:tz usr) 15)
+     :ago30 (now-local-str (:tz usr) 30)
+     :ago45 (now-local-str (:tz usr) 45)
+     :ago60 (now-local-str (:tz usr) 60)
      }))
