@@ -67,7 +67,10 @@ create table user_kid_log (
        note text,
        datapoint varchar(20),
        datapoint2 varchar(20),
+       datapoint3 varchar(20),
        activity_dt timestamp without time zone,
        create_dt timestamp without time zone default now(),
        delete_dt timestamp without time zone
 );
+
+-- alter table user_kid_log add column datapoint3 varchar(20);

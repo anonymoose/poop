@@ -33,7 +33,7 @@
                 <td><a href="/event-view/{{e.id}}">{{e.name}}</a></td>
                 <td>{{e.log_type}}</td>
                 <td>{{e.create_dt|date:"MM-dd h:mm a"}}</td>
-                <td>{{e.datapoint}} {{e.datapoint2}}</td>
+                <td>{{e.datapoint}} {{e.datapoint2}} {% if e.datapoint3 %} / {{e.datapoint3}} {% endif %} </td>
                 <td>{{e.note}}</td>
               </tr>
               {% endfor %}

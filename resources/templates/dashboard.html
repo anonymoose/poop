@@ -95,7 +95,6 @@
                 <th>Event <i class="fa fa-sort"></i></th>
                 <th>When? <i class="fa fa-sort"></i></th>
                 <th>Info <i class="fa fa-sort"></i></th>
-                <th>Note <i class="fa fa-sort"></i></th>
               </tr>
             </thead>
             <tbody>
@@ -104,8 +103,7 @@
                 <td><a href="/event-view/{{e.id}}">{{e.name}}</a></td>
                 <td>{{e.log_type}}</td>
                 <td>{{e.activity_dt|date:"h:mm a M/dd"}}</td>
-                <td>{{e.datapoint}} {{e.datapoint2}}</td>
-                <td>{{e.note}}</td>
+                <td>{{e.datapoint}} {{e.datapoint2}} {% if e.datapoint3 %} / {{e.datapoint3}} {% endif %} </td>
               </tr>
               {% endfor %}
             </tbody>
