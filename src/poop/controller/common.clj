@@ -20,6 +20,8 @@
 (defn summary-vars []
   {:production (web/production?)
    :mobile (web/mobile?)
+   :desktop (not (web/mobile?))
+   :enable-menu true
    })
 
 (defn logged-in-user-id []
@@ -33,6 +35,8 @@
         usr (if (util/not-nil? uid) (user/load-one uid))
         kids (if (util/not-nil? usr) (user/find-kids-by-user usr))]
     {
+     :mobile (web/mobile?)
+     :desktop (not (web/mobile?))
      :logged-in? (complement (nil? uid))
      :timezone-list util/TIMEZONE-LIST
      :uid uid

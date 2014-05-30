@@ -172,4 +172,5 @@
                 (merge
                  (common/user-vars)
                  (event-vars)
+                 {:enable-menu false}
                  )))
