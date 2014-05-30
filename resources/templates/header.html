@@ -23,16 +23,18 @@
   <body>
     <div id="wrapper">
       <!-- Sidebar -->
-      {% if any enable-menu %}
+
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
+          {% if any enable-menu %}
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          {% endif %}
           <a class="navbar-brand" href="/"><img src="/images/logo-web-trimmed.png"/>Poop. It's on your phone.</a>
         </div>
 
@@ -53,5 +55,5 @@
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
-      {% endif %}
+
       <div id="page-wrapper">
